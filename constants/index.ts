@@ -1,0 +1,1 @@
+export const AVATAR_PLACEHOLDER_URL = "https://avatar.iran.liara.run/public/boy";
