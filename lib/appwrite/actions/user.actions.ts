@@ -1,10 +1,11 @@
 'use server'
 
 import { ID, Query } from "node-appwrite";
-import { createAdminClient } from ".."
+import { createAdminClient, createSessionClient } from ".."
 import { APPWRITE_CONFIG } from "../config";
 import { AVATAR_PLACEHOLDER_URL } from "@/constants";
 import { parseStringify } from "@/lib/utils";
+import { cookies } from "next/headers";
 
 const getUserByEmail = async (email: string) => {
     try {
@@ -57,3 +58,40 @@ export const createAccount = async ({ email, fullName }: { email: string, fullNa
 
     return parseStringify({ accountId });
 };
+
+export const verifyOTP = async ({ otp, accountId }: { otp: string, accountId: string }) => {
+    try {
+        const { account } = await createAdminClient();
+        const session = await account.createSession(accountId, otp);
+        (await cookies()).set("appwrite-session", session.secret, {
+            path: "/",
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict",
+        });
+
+        return parseStringify({ sessionId: session.$id });
+    } catch (error) {
+        console.error("Error verifying OTP:", error);
+        throw new Error("Failed to verify OTP");
+    }
+};
+
+export const getUser = async () => {
+    try {
+        const { database, account } = await createSessionClient();
+        const result = await account.get();
+
+        const user = await database.listDocuments(
+            APPWRITE_CONFIG.databaseId,
+            APPWRITE_CONFIG.userCollectionId,
+            [Query.equal("accountId", result.$id)],
+        );
+
+        if (user.total < 0) return null;
+        return parseStringify(user.documents[0]);
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        throw new Error("Failed to fetch user");
+    }
+}

@@ -217,7 +217,7 @@
   }
 
   .recharts-responsive-container {
-    height: initial !important;
+    height: initial;
   }
 }
 
@@ -333,5 +333,47 @@
   }
   .shad-select-item {
     @apply cursor-pointer;
+  }
+
+  /* OTP Modal */
+  .otp-close-button {
+    @apply absolute -right-1 -top-7 cursor-pointer sm:-right-2 sm:-top-4;
+  }
+
+  /* Root Layout */
+  .main-content {
+    @apply h-full flex-1 overflow-auto bg-light-400 px-5 py-7 sm:mr-7 sm:rounded-[30px] md:mb-7 md:px-9 md:py-10;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    @apply hidden h-screen w-[90px] flex-col overflow-auto px-5 py-7 sm:flex lg:w-[280px] xl:w-[325px];
+  }
+  .sidebar-nav {
+    @apply text-[16px] leading-[24px] font-semibold mt-9 flex-1 gap-1 text-brand;
+  }
+  .sidebar-nav-item {
+    @apply flex text-light-100 gap-4 rounded-xl lg:w-full justify-center lg:justify-start items-center text-[16px] leading-[24px] font-semibold lg:px-[30px] h-[52px] lg:rounded-full;
+  }
+  .sidebar-nav-item:hover {
+    @apply opacity-60;
+  }
+  .sidebar-user-info {
+    @apply mt-4 flex items-center justify-center gap-2 rounded-full bg-brand/10 p-1 text-light-100 lg:justify-start lg:p-3;
+  }
+  .sidebar-user-avatar {
+    @apply aspect-square w-10 rounded-full object-cover;
+  }
+
+  /* Sidebar & MobileNavigation */
+  .nav-icon {
+    @apply w-6 filter invert opacity-25;
+  }
+  .nav-icon-active {
+    @apply invert-0 opacity-100;
+  }
+
+  .shad-active {
+    @apply bg-brand text-white shadow-drop-2;
   }
 }
