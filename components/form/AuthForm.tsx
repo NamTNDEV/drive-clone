@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import Link from "next/link";
 import Image from "next/image";
-import { createAccount } from "@/lib/appwrite/actions/user.actions";
+import { createAccount, signInUser } from "@/lib/appwrite/actions/user.actions";
 import OTPModal from "../modal/OTPModal";
 
 type FormType = 'sign-in' | 'sign-up';
@@ -50,7 +50,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
                 type === "sign-up" ? await createAccount({
                     email: values.email,
                     fullName: values.fullName!,
-                }) : console.log("Sign-in functionality not implemented yet");
+                }) : await signInUser({ email: values.email });
 
             if (user.accountId) {
                 setAccountId(user.accountId);

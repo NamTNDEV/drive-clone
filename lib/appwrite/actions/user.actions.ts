@@ -6,6 +6,7 @@ import { APPWRITE_CONFIG } from "../config";
 import { AVATAR_PLACEHOLDER_URL } from "@/constants";
 import { parseStringify } from "@/lib/utils";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const getUserByEmail = async (email: string) => {
     try {
@@ -95,3 +96,33 @@ export const getUser = async () => {
         throw new Error("Failed to fetch user");
     }
 }
+
+export const signOutUser = async () => {
+    const { account } = await createSessionClient();
+
+    try {
+        await account.deleteSession("current");
+        (await cookies()).delete("appwrite-session");
+    } catch (error) {
+        console.error("Error signing out user:", error);
+        throw new Error("Failed to sign out user");
+    } finally {
+        redirect("/sign-in");
+    }
+};
+
+export const signInUser = async ({ email }: { email: string }) => {
+    try {
+        const existingUser = await getUserByEmail(email);
+
+        if (existingUser) {
+            await sendEmailOTP(email);
+            return parseStringify({ accountId: existingUser.accountId });
+        }
+
+        return parseStringify({ accountId: null, error: "User not found" });
+    } catch (error) {
+        console.error("Error signing in user:", error);
+        throw new Error("Failed to sign in user");
+    }
+};

@@ -257,7 +257,7 @@
     @apply text-[10px] leading-[14px] font-normal;
   }
   .button {
-    @apply text-[14px] leading-[20px] font-medium;
+    @apply text-[14px] leading-[20px] font-medium cursor-pointer;
   }
 
   /* ===== HELPER CLASSES */
@@ -279,7 +279,7 @@
     @apply text-[34px] leading-[42px] font-bold text-center text-light-100 md:text-left;
   }
   .form-submit-button {
-    @apply bg-brand hover:bg-brand-100 transition-all rounded-full text-[14px] leading-[20px] font-medium h-[66px];
+    @apply bg-brand hover:bg-brand-100 transition-all rounded-full text-[14px] leading-[20px] font-medium h-[66px] cursor-pointer;
   }
   .error-message {
     @apply text-[14px] leading-[20px] font-normal  rounded-xl bg-error/5 px-8 py-4 text-center text-error;
@@ -320,7 +320,7 @@
   }
   .shad-sheet button,
   .shad-dialog button {
-    @apply focus:ring-0 focus:ring-offset-0 focus-visible:border-none outline-none focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-0;
+    @apply focus:ring-0 focus:ring-offset-0 focus-visible:border-none outline-none focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-0 cursor-pointer;
   }
   .shad-dropdown-item {
     @apply cursor-pointer;
@@ -375,5 +375,39 @@
 
   .shad-active {
     @apply bg-brand text-white shadow-drop-2;
+  }
+
+  /* Header */
+  .header {
+    @apply hidden items-center justify-between gap-5 p-5 sm:flex lg:py-7 xl:gap-10;
+  }
+  .header-wrapper {
+    @apply flex items-center justify-center min-w-fit gap-4;
+  }
+  .sign-out-button {
+    @apply flex items-center justify-center h-[52px] min-w-[54px] rounded-full bg-brand/10 p-0 text-brand shadow-none transition-all hover:bg-brand/20 cursor-pointer;
+  }
+
+  /* Mobile Navigation */
+  .mobile-header {
+    @apply flex h-[60px] justify-between px-5 sm:hidden;
+  }
+  .header-user {
+    @apply my-3 flex items-center gap-2 rounded-full p-1 text-light-100 sm:justify-center sm:bg-brand/10 lg:justify-start lg:p-3;
+  }
+  .header-user-avatar {
+    @apply aspect-square w-10 rounded-full object-cover;
+  }
+  .mobile-nav {
+    @apply text-[16px] leading-[24px] font-semibold flex-1 gap-1 text-brand;
+  }
+  .mobile-nav-list {
+    @apply flex flex-1 flex-col gap-4;
+  }
+  .mobile-nav-item {
+    @apply flex text-light-100 gap-4 w-full justify-start items-center text-[16px] leading-[24px] font-semibold px-6 h-[52px] rounded-full;
+  }
+  .mobile-sign-out-button {
+    @apply text-[16px] leading-[24px] font-semibold flex h-[52px] w-full items-center gap-4 rounded-full bg-brand/10 px-6 text-brand shadow-none transition-all hover:bg-brand/20 cursor-pointer;
   }
 }

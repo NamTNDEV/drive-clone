@@ -1,5 +1,5 @@
 'use client';
-import { navItems } from "@/constants";
+import { AVATAR_PLACEHOLDER_URL, navItems } from "@/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,9 +7,9 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 type SidebarProps = {
-    fullName: string;
-    email: string;
-    avatar: string;
+    fullName?: string;
+    email?: string;
+    avatar?: string;
 }
 
 const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
@@ -74,15 +74,15 @@ const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
             {/* User Info */}
             <div className="sidebar-user-info">
                 <Image
-                    src={avatar}
+                    src={avatar || AVATAR_PLACEHOLDER_URL}
                     alt="Avatar"
                     width={44}
                     height={44}
                     className="sidebar-user-avatar"
                 />
                 <div className="hidden lg:block">
-                    <p className="subtitle-2 capitalize">{fullName}</p>
-                    <p className="caption">{email}</p>
+                    <p className="subtitle-2 capitalize">{fullName || "Unknown User"}</p>
+                    <p className="caption">{email || "No Email Provided"}</p>
                 </div>
             </div>
 
